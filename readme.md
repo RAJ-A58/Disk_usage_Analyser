@@ -58,6 +58,30 @@ It provides insights such as largest files, file type distribution, search funct
 
 ---
 
+## 📂 Project Structure
+
+```
+Disk_usage_Analyser/
+│
+├── main.py                  # Main menu-driven program
+├── readme.md               # Project documentation
+├── .gitignore              # Ignored files
+│
+├── database/
+│   ├── config.py           # MySQL connection setup
+│   └── operations.py       # Database operations (queries)
+│
+├── scan/
+│   └── scanner.py          # File scanning logic using os module
+│
+├── convert/
+│   ├── chart.py            # Visualization (pie chart)
+│   └── cnvrt.py            # Size conversion (bytes → KB/MB/GB)
+│
+└── __pycache__/            # Python cache files (ignored)
+```
+
+
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the repository
