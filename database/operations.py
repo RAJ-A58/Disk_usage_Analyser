@@ -1,32 +1,32 @@
 from database.config import get_connection
 
 
-def insert_file(data):
+def insert_file(data):  #data is a tuple (name, size, type, modified_time, path)
     conn = get_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor()  #cursor is a tool to write and execute SQL queries
 
     query = """
     INSERT IGNORE INTO files (name, size, type, modified_time, path)
     VALUES (%s, %s, %s, %s, %s)
     """
-
+    #insert ignore skips the row if any error exist like duplicate entry.
     cursor.execute(query, data)
-    conn.commit()
+    conn.commit()      #commits making the changes permanent.
 
-    cursor.close()
-    conn.close()
+    cursor.close()    #closing the cursor and connection to free up resources.
+    conn.close()      #closing the connection to the database.
 
 
 def get_largest_files():
-    conn = get_connection()
-    cursor = conn.cursor()
+    conn = get_connection()  # opening a connection to the database
+    cursor = conn.cursor()    #creating a tool to execute SQL queries
 
     cursor.execute("""
     SELECT name, size FROM files
     ORDER BY size DESC LIMIT 5
     """)
 
-    results = cursor.fetchall()
+    results = cursor.fetchall()   #return tuple of all the rows in the result set.
 
     cursor.close()
     conn.close()
@@ -39,10 +39,10 @@ def get_file_types():
     cursor = conn.cursor()
 
     cursor.execute("""
-    SELECT type, COUNT(*) FROM files
+    SELECT type, COUNT(*) FROM files    
     GROUP BY type
     """)
-
+    #This query groups the files by their type and counts how many files there are of each type. The result will be a list of tuples where each tuple contains a file type and the corresponding count.
     results = cursor.fetchall()
 
     cursor.close()
